@@ -1,3 +1,4 @@
+using Foodrecip.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,7 @@ namespace Foodrecip
             //sdsds
             //test
             //helooooosd
+            services.AddHttpClient<ThemealdbClient>();
             services.AddControllers();
         }
 
