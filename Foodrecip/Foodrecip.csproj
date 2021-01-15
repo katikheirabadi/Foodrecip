@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Services\page1\" />
+    <Folder Include="Models\Page2\" />
   </ItemGroup>
 
 
