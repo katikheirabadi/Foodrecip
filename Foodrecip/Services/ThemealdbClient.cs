@@ -7,6 +7,7 @@ using Foodrecip.Models.Page2;
 using Foodrecip.Services.page1;
 using System.Linq;
 using System.Collections.Generic;
+using Foodrecip.Models.Page4;
 
 namespace Foodrecip.Services
 {
@@ -36,7 +37,7 @@ namespace Foodrecip.Services
             foods = JsonSerializer.Deserialize<FoodList>(stringContent);
             return foods;
         }    
-        public FoodList GetDetail_cat(string food)
+        public FoodList GetDetail_meal(string food)
         {
             var httpResponse = client.GetAsync($"api/json/v1/1/list.php?c={food}").Result;
             httpResponse.EnsureSuccessStatusCode();
@@ -63,30 +64,6 @@ namespace Foodrecip.Services
             var stringContent = content.ReadAsStringAsync().Result;
             foods = JsonSerializer.Deserialize<FoodList>(stringContent);
             return foods;
-        }
-        public List<FoodList> GetFaveriteFood(string email)
-        {
-            const int count = 2;
-            List<FoodList> lu = new List<FoodList>();
-            var user = UserServises.us.FirstOrDefault(u => u.Email == email);
-            if (user == null)
-                return null;
-            else
-            {
-                if (user.Favorites.Count <= count)
-                {
-                    foreach (var food in user.Favorites)
-                        lu.Add(GetDetail_ing(food));
-                }
-                else
-                {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        lu.Add(GetDetail_ing(user.Favorites[i]));
-                    }
-                }
-                return lu;
-            }
         }
     }
 
