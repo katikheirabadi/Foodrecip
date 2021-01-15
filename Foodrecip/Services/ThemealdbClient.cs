@@ -3,6 +3,9 @@ using System.Net.Http;
 using System.Text.Json;
 using Foodrecip.Models.Page2;
 using System.Linq;
+using Foodrecip.Models.Page3;
+using Foodrecip.Models.Page4;
+using System.Collections.Generic;
 
 namespace Foodrecip.Services
 {
@@ -75,45 +78,54 @@ namespace Foodrecip.Services
         }
         public FoodList GetDetail_ing(string food)
         {
-            var httpResponse = client.GetAsync($"api/json/v1/1/list.php?i={food}").Result;
+            var httpResponse = client.GetAsync($"/api/json/v1/1/filter.php?i={food}").Result;
             httpResponse.EnsureSuccessStatusCode();
             if (!httpResponse.IsSuccessStatusCode)
             {
                 return null;
             }
-            FoodList foods;
+            FoodList food1 = new FoodList();
+            Foodlistsite foods;
             HttpContent content = httpResponse.Content;
             var stringContent = content.ReadAsStringAsync().Result;
-            foods = JsonSerializer.Deserialize<FoodList>(stringContent);
-            return foods;
+            foods = JsonSerializer.Deserialize<Foodlistsite>(stringContent);
+            var result1 = foods.meals.Select(x => new Food() { id = x.idMeal, food = x.strMeal , foodthumb = x.strMealThumb }).ToList();
+            food1.foods = result1;
+            return food1;
         }
         public FoodList GetDetail_meal(string food)
         {
-            var httpResponse = client.GetAsync($"api/json/v1/1/list.php?c={food}").Result;
+            var httpResponse = client.GetAsync($"/api/json/v1/1/filter.php?c={food}").Result;
             httpResponse.EnsureSuccessStatusCode();
             if (!httpResponse.IsSuccessStatusCode)
             {
                 return null;
             }
-            FoodList foods;
+            FoodList food1 = new FoodList();
+            Foodlistsite foods;
             HttpContent content = httpResponse.Content;
             var stringContent = content.ReadAsStringAsync().Result;
-            foods = JsonSerializer.Deserialize<FoodList>(stringContent);
-            return foods;
+            foods = JsonSerializer.Deserialize<Foodlistsite>(stringContent);
+            var result1 = foods.meals.Select(x => new Food() { id = x.idMeal, food = x.strMeal, foodthumb = x.strMealThumb }).ToList();
+            food1.foods = result1;
+            return food1;
         }
         public FoodList GetDetail_area(string food)
         {
-            var httpResponse = client.GetAsync($"api/json/v1/1/list.php?a={food}").Result;
+            var httpResponse = client.GetAsync($"/api/json/v1/1/filter.php?a={food}").Result;
             httpResponse.EnsureSuccessStatusCode();
             if (!httpResponse.IsSuccessStatusCode)
             {
                 return null;
             }
-            FoodList foods;
+            FoodList food1 = new FoodList();
+            Foodlistsite foods;
             HttpContent content = httpResponse.Content;
             var stringContent = content.ReadAsStringAsync().Result;
-            foods = JsonSerializer.Deserialize<FoodList>(stringContent);
-            return foods;
+            foods = JsonSerializer.Deserialize<Foodlistsite>(stringContent);
+            var result1 = foods.meals.Select(x => new Food() { id = x.idMeal, food = x.strMeal, foodthumb = x.strMealThumb }).ToList();
+            food1.foods = result1;
+            return food1;
         }
         public List<FoodList> GetFaveriteFood(string email)
         {

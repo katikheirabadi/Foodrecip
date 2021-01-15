@@ -11,4 +11,6 @@ namespace Foodrecip.Models.Page3
         public string foodthumb { get; set; }
         public string id { get; set; }
     }
+
+  
 }
