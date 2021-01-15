@@ -7,6 +7,7 @@ using Foodrecip.Models.Page2;
 using Foodrecip.Services.page1;
 using System.Linq;
 using System.Collections.Generic;
+using Foodrecip.Models.Page4;
 
 namespace Foodrecip.Services
 {
@@ -90,7 +91,7 @@ namespace Foodrecip.Services
             foods = JsonSerializer.Deserialize<FoodList>(stringContent);
             return foods;
         }
-        public FoodList GetDetail_cat(string food)
+        public FoodList GetDetail_meal(string food)
         {
             var httpResponse = client.GetAsync($"api/json/v1/1/list.php?c={food}").Result;
             httpResponse.EnsureSuccessStatusCode();
@@ -141,6 +142,20 @@ namespace Foodrecip.Services
                 }
                 return lu;
             }
+        }
+        public DetailView detailshow(string id)
+        {
+            var httpResponse = client.GetAsync($"api/json/v1/1/lookup.php?i={id}").Result;
+            httpResponse.EnsureSuccessStatusCode();
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            DetailView foods;
+            HttpContent content = httpResponse.Content;
+            var stringContent = content.ReadAsStringAsync().Result;
+            foods = JsonSerializer.Deserialize<DetailView>(stringContent);
+            return foods;
         }
     }
 
