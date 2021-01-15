@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json;
 using Foodrecip.Models.Page2;
+using Foodrecip.Models.Page4;
 
 namespace Foodrecip.Services
 {
@@ -33,7 +34,7 @@ namespace Foodrecip.Services
             foods = JsonSerializer.Deserialize<FoodList>(stringContent);
             return foods;
         }    
-        public FoodList GetDetail_cat(string food)
+        public FoodList GetDetail_meal(string food)
         {
             var httpResponse = client.GetAsync($"api/json/v1/1/list.php?c={food}").Result;
             httpResponse.EnsureSuccessStatusCode();
@@ -60,6 +61,20 @@ namespace Foodrecip.Services
             var stringContent = content.ReadAsStringAsync().Result;
             foods = JsonSerializer.Deserialize<FoodList>(stringContent);
             return foods;
+        }
+        public DetailView showDetail(string id)
+        {
+            var httpResponse = client.GetAsync($"api/json/v1/1/lookup.php?i={id}").Result;
+            httpResponse.EnsureSuccessStatusCode();
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            DetailView detail;
+            HttpContent content = httpResponse.Content;
+            var stringContent = content.ReadAsStringAsync().Result;
+            detail = JsonSerializer.Deserialize<DetailView>(stringContent);
+            return detail;
         }
     }
 
