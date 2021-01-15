@@ -19,7 +19,48 @@ namespace Foodrecip.Services
             this.client.BaseAddress = new Uri(BaseAddress);
             this.client.DefaultRequestHeaders.Add("Accept", "application/json");
         }
-        
+        public FoodList GetDetail_ing(string food)
+        {
+            var httpResponse = client.GetAsync($"api/json/v1/1/list.php?i={food}").Result;
+            httpResponse.EnsureSuccessStatusCode();
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            FoodList foods;
+            HttpContent content = httpResponse.Content;
+            var stringContent = content.ReadAsStringAsync().Result;
+            foods = JsonSerializer.Deserialize<FoodList>(stringContent);
+            return foods;
+        }    
+        public FoodList GetDetail_cat(string food)
+        {
+            var httpResponse = client.GetAsync($"api/json/v1/1/list.php?c={food}").Result;
+            httpResponse.EnsureSuccessStatusCode();
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            FoodList foods;
+            HttpContent content = httpResponse.Content;
+            var stringContent = content.ReadAsStringAsync().Result;
+            foods = JsonSerializer.Deserialize<FoodList>(stringContent);
+            return foods;
+        }
+        public FoodList GetDetail_area(string food)
+        {
+            var httpResponse = client.GetAsync($"api/json/v1/1/list.php?a={food}").Result;
+            httpResponse.EnsureSuccessStatusCode();
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            FoodList foods;
+            HttpContent content = httpResponse.Content;
+            var stringContent = content.ReadAsStringAsync().Result;
+            foods = JsonSerializer.Deserialize<FoodList>(stringContent);
+            return foods;
+        }
     }
 
 }
