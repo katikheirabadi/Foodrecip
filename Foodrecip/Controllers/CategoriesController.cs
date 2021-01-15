@@ -12,22 +12,20 @@ namespace Foodrecip.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AreasController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
         private readonly ThemealdbClient client;
 
-        public AreasController(ThemealdbClient client)
+        public CategoriesController(ThemealdbClient client)
         {
             this.client = client;
         }
 
         [HttpGet]
-        public AreaList GetAreas([FromQuery] int size)
+        public CategoryList GetCategories([FromQuery] int size)
         {
-            return client.ListAreas(size);
+            return client.ListCategories(size);
         }
-
-
 
 
     }

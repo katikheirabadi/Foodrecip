@@ -19,7 +19,7 @@ namespace Foodrecip.Controllers
             themealdbclient = theme;
         }
         [HttpGet("{cat}&{selected}")]
-        public FoodList Get(string cat,string food)
+        public FoodList Get([FromQuery]string cat,string food)
         {
             var foodList = new FoodList();
 

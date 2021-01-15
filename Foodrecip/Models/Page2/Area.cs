@@ -8,7 +8,13 @@ namespace Foodrecip.Models.Page2
         public string strArea { get; set; }
     }
 
-    public class AreaList {
+    public class AreaList
+    {
+
         public List<Area> meals { get; set; }
+        public AreaList()
+        {
+            meals = new List<Area>();
+        }
     }
 }
