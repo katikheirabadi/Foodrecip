@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Foodrecip.Services.page1
+namespace Foodrecip.Models.page1
 {
     public class User
     {
