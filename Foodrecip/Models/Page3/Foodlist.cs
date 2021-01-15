@@ -8,6 +8,5 @@ namespace Foodrecip.Models.Page3
     public class FoodList
     {
         public List<Food> foods { get; set; }
-
     }
 }
