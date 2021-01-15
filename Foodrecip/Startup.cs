@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Foodrecip
 {
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
