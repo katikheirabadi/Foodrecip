@@ -14,4 +14,9 @@ namespace Foodrecip.Models.Page4
         public string instructions { get; set; }
         public string mealThumb { get; set; }
     }
+    public class DvList
+    {
+        public List<DetailView> meals;
+       
+    }
 }

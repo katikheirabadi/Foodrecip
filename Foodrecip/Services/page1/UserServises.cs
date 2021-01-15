@@ -8,7 +8,7 @@ namespace Foodrecip.Services.page1
 {
     public class UserServises
     {
-        static List<User> us = new List<User>();
+        public static List<User> us = new List<User>();
         
         public void Insert(User user)
         {

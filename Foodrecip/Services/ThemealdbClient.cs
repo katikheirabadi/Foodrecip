@@ -6,6 +6,7 @@ using System.Linq;
 using Foodrecip.Models.Page3;
 using Foodrecip.Models.Page4;
 using System.Collections.Generic;
+using Foodrecip.Services.page1;
 
 namespace Foodrecip.Services
 {
@@ -151,19 +152,24 @@ namespace Foodrecip.Services
                 return lu;
             }
         }
-        public DetailView detailshow(string id)
+        public DtsiteList detailshow(string Myid)
         {
-            var httpResponse = client.GetAsync($"api/json/v1/1/lookup.php?i={id}").Result;
+            var httpResponse = client.GetAsync($"/api/json/v1/1/lookup.php?i={Myid}").Result;
             httpResponse.EnsureSuccessStatusCode();
             if (!httpResponse.IsSuccessStatusCode)
             {
                 return null;
             }
-            DetailView foods;
+            DtsiteList list = new DtsiteList();
+            DvList list1 = new DvList();
+            Detailvi detailvi;
             HttpContent content = httpResponse.Content;
             var stringContent = content.ReadAsStringAsync().Result;
-            foods = JsonSerializer.Deserialize<DetailView>(stringContent);
-            return foods;
+            list.meals.Add(detailvi= JsonSerializer.Deserialize<Detailvi>(stringContent));
+
+            var m = list.meals.Select(x => new DetailView() { id = x.idMeal, area = x.strArea, category = x.strCategory, instructions = x.strInstructions, mealThumb = x.strMealThumb, title = x.strMeal }).ToList();
+            list1.meals = m;
+            return list;
         }
 
     }

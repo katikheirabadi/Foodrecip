@@ -1,4 +1,5 @@
 ﻿using Foodrecip.Models.Page3;
+using Foodrecip.Models.Page4;
 using Foodrecip.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,21 +19,21 @@ namespace Foodrecip.Controllers
         {
             themealdbclient = theme;
         }
-        [HttpGet("{cat}&{selected}")]
-        public FoodList Get([FromQuery] string cat, string food)
+        [HttpGet]
+        public FoodList Get([FromQuery] string cat,[FromQuery] string selected)
         {
             var foodList = new FoodList();
 
             switch (cat)
             {
                 case "ing":
-                    foodList = themealdbclient.GetDetail_ing(food);
+                    foodList = themealdbclient.GetDetail_ing(selected);
                     break;
                 case "meal":
-                    foodList = themealdbclient.GetDetail_meal(food);
+                    foodList = themealdbclient.GetDetail_meal(selected);
                     break;
                 case "area":
-                    foodList = themealdbclient.GetDetail_area(food);
+                    foodList = themealdbclient.GetDetail_area(selected);
                     break;
                 default:
                     foodList = null;
@@ -41,6 +42,11 @@ namespace Foodrecip.Controllers
             return foodList;
 
 
+        }
+        [HttpGet("{id}")]
+        public DtsiteList show(string id)
+        {
+            return themealdbclient.detailshow(id);
         }
     }
 }
