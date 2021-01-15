@@ -4,6 +4,9 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json;
 using Foodrecip.Models.Page2;
+using Foodrecip.Services.page1;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Foodrecip.Services
 {
@@ -60,6 +63,30 @@ namespace Foodrecip.Services
             var stringContent = content.ReadAsStringAsync().Result;
             foods = JsonSerializer.Deserialize<FoodList>(stringContent);
             return foods;
+        }
+        public List<FoodList> GetFaveriteFood(string email)
+        {
+            const int count = 2;
+            List<FoodList> lu = new List<FoodList>();
+            var user = UserServises.us.FirstOrDefault(u => u.Email == email);
+            if (user == null)
+                return null;
+            else
+            {
+                if (user.Favorites.Count <= count)
+                {
+                    foreach (var food in user.Favorites)
+                        lu.Add(GetDetail_ing(food));
+                }
+                else
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        lu.Add(GetDetail_ing(user.Favorites[i]));
+                    }
+                }
+                return lu;
+            }
         }
     }
 
