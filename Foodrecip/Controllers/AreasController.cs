@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Foodrecip.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AreasController : ControllerBase
     {
         private readonly ThemealdbClient client;
@@ -21,10 +21,14 @@ namespace Foodrecip.Controllers
             this.client = client;
         }
 
-        [HttpGet("size")]
-        public AreaList GetAreas([FromQuery] int x)
+        [HttpGet]
+        public AreaList GetAreas([FromQuery] int size)
         {
-            return client.ListAreas(x);
+            return client.ListAreas(size);
         }
+
+
+
+
     }
 }

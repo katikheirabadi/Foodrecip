@@ -9,6 +9,11 @@ namespace Foodrecip.Models.Page2
     }
 
     public class AreaList {
+
         public List<Area> meals { get; set; }
+        public AreaList()
+        {
+            meals = new List<Area>();
+        }
     }
 }
