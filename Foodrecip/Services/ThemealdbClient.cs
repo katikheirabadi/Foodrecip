@@ -65,6 +65,20 @@ namespace Foodrecip.Services
             foods = JsonSerializer.Deserialize<FoodList>(stringContent);
             return foods;
         }
+        public DetailView detailshow(string id)
+        {
+            var httpResponse = client.GetAsync($"api/json/v1/1/lookup.php?i={id}").Result;
+            httpResponse.EnsureSuccessStatusCode();
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            DetailView show;
+            HttpContent content = httpResponse.Content;
+            var stringContent = content.ReadAsStringAsync().Result;
+            show = JsonSerializer.Deserialize<DetailView>(stringContent);
+            return show;
+        }
     }
 
 }

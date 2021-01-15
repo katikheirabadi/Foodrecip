@@ -21,7 +21,7 @@ namespace Foodrecip.Controllers
         [HttpGet("{id}")]
         public DetailView show(string id)
         {
-            return detail.showDetail(id);
+            return detail.detailshow(id);
         }
     }
 }
