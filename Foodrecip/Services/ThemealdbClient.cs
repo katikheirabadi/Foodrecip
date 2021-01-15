@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Foodrecip.Models.Page3;
+using System;
 using System.Net.Http;
+using System.Text.Json;
 using System.Text.Json;
 using Foodrecip.Models.Page2;
 using System.Linq;
@@ -172,6 +174,100 @@ namespace Foodrecip.Services
             return list;
         }
 
+            httpResponse.EnsureSuccessStatusCode();
+            if (!httpResponse.IsSuccessStatusCode) { return null; }
+            IngredientOutputList resultTemp = new IngredientOutputList();
+            using (HttpContent content = httpResponse.Content)
+            {
+                string stringContent = content.ReadAsStringAsync().Result;
+                var resultService = JsonSerializer.Deserialize<IngredientList>(stringContent);
+                var result1 = resultService.meals.Select(x => new IngredientOutput() { id = x.idIngredient, ingredient = x.strIngredient }).Take(size).ToList();
+                resultTemp.result = result1;
+
+            }
+
+            return resultTemp;
+        }
+        public FoodList GetDetail_ing(string food)
+        {
+            var httpResponse = client.GetAsync($"api/json/v1/1/list.php?i={food}").Result;
+            httpResponse.EnsureSuccessStatusCode();
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            FoodList foods;
+            HttpContent content = httpResponse.Content;
+            var stringContent = content.ReadAsStringAsync().Result;
+            foods = JsonSerializer.Deserialize<FoodList>(stringContent);
+            return foods;
+        }
+        public FoodList GetDetail_meal(string food)
+        {
+            var httpResponse = client.GetAsync($"api/json/v1/1/list.php?c={food}").Result;
+            httpResponse.EnsureSuccessStatusCode();
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            FoodList foods;
+            HttpContent content = httpResponse.Content;
+            var stringContent = content.ReadAsStringAsync().Result;
+            foods = JsonSerializer.Deserialize<FoodList>(stringContent);
+            return foods;
+        }
+        public FoodList GetDetail_area(string food)
+        {
+            var httpResponse = client.GetAsync($"api/json/v1/1/list.php?a={food}").Result;
+            httpResponse.EnsureSuccessStatusCode();
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            FoodList foods;
+            HttpContent content = httpResponse.Content;
+            var stringContent = content.ReadAsStringAsync().Result;
+            foods = JsonSerializer.Deserialize<FoodList>(stringContent);
+            return foods;
+        }
+        public List<FoodList> GetFaveriteFood(string email)
+        {
+            const int count = 2;
+            List<FoodList> lu = new List<FoodList>();
+            var user = UserServises.us.FirstOrDefault(u => u.Email == email);
+            if (user == null)
+                return null;
+            else
+            {
+                if (user.Favorites.Count <= count)
+                {
+                    foreach (var food in user.Favorites)
+                        lu.Add(GetDetail_ing(food));
+                }
+                else
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        lu.Add(GetDetail_ing(user.Favorites[i]));
+                    }
+                }
+                return lu;
+            }
+        }
+        public DetailView detailshow(string id)
+        {
+            var httpResponse = client.GetAsync($"api/json/v1/1/lookup.php?i={id}").Result;
+            httpResponse.EnsureSuccessStatusCode();
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            DetailView foods;
+            HttpContent content = httpResponse.Content;
+            var stringContent = content.ReadAsStringAsync().Result;
+            foods = JsonSerializer.Deserialize<DetailView>(stringContent);
+            return foods;
+        }
     }
 
 }

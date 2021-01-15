@@ -8,7 +8,7 @@ namespace Foodrecip.Models.Page2
         public string strCategory { get; set; }
     }
 
-    public class CategoryList 
+    public class CategoryList
     {
 
         public List<Category> meals { get; set; }
