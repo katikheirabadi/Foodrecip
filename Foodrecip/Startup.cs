@@ -27,7 +27,7 @@ namespace Foodrecip
         public void ConfigureServices(IServiceCollection services)
         {
             //test
-            //helooooo
+            //helooooosd
             services.AddControllers();
         }
 
