@@ -8,6 +8,6 @@ namespace Foodrecip.Models.page1
     public class User
     {
         public string Email { get; set; }
-        public string Favorites { get; set; }
+        public List<string> Favorites { get; set; }
     }
 }
