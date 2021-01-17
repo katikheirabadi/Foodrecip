@@ -38,7 +38,7 @@ namespace Foodrecip.Models.Page4
          public string strIngredient20 { get; set; }
          public string strMeasure1 { get; set; }
          public string strMeasure2 { get; set; }
-         public string strMeasure3 { get; set; }
+     //    public string strMeasure3 { get; set; }
          public string strMeasure4 { get; set; }
          public string strMeasure5 { get; set; }
          public string strMeasure6 { get; set; }
