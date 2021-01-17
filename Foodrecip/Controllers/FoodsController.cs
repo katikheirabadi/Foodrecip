@@ -19,34 +19,36 @@ namespace Foodrecip.Controllers
         {
             themealdbclient = theme;
         }
+
         [HttpGet]
-        public FoodList Get([FromQuery] string cat,[FromQuery] string selected)
+        public FoodList Get([FromQuery] FoodDetail foodDetail)
         {
             var foodList = new FoodList();
 
-            switch (cat)
+            switch (foodDetail.cat)
             {
                 case "ing":
-                    foodList = themealdbclient.GetDetail_ing(selected);
+                    foodList = themealdbclient.GetDetail_ing(foodDetail.selected);
                     break;
                 case "meal":
-                    foodList = themealdbclient.GetDetail_meal(selected);
+                    foodList = themealdbclient.GetDetail_meal(foodDetail.selected);
                     break;
                 case "area":
-                    foodList = themealdbclient.GetDetail_area(selected);
+                    foodList = themealdbclient.GetDetail_area(foodDetail.selected);
                     break;
                 default:
                     foodList = null;
                     break;
             }
             return foodList;
-
-            
         }
+
         [HttpGet("{id}")]
-        public DtsiteList show(string id)
+        public DetailView show(int id)
         {
             return themealdbclient.detailshow(id);
         }
+
+
     }
 }
