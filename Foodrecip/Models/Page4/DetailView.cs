@@ -14,9 +14,10 @@ namespace Foodrecip.Models.Page4
         public string instructions { get; set; }
         public string mealThumb { get; set; }
     }
-    public class DvList
+    public class DetailViewList
     {
-        public List<DetailView> meals;
-       
+        public List<DetailView> food { get; set; }
+
+
     }
 }
